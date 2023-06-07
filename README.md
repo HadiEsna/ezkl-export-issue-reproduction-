@@ -23,6 +23,12 @@ ezkl setup -M python-output/network-before-train.onnx --params-path=./ezkl/kzg.p
 ezkl prove -M python-output/network-before-train.onnx -D python-output/dummy-input-before-train.json --pk-path=./ezkl/pk.key --proof-path=./ezkl/model.proof --params-path=./ezkl/kzg.params --circuit-params-path=./ezkl/circuit.params
 ```
 
+
+6. Run "prove" 2 (it fails)
+```bash
+ezkl prove -M python-output/network-after-train.onnx -D python-output/dummy-input-after-train.json --pk-path=./ezkl/pk.key --proof-path=./ezkl/model2.proof --params-path=./ezkl/kzg.params --circuit-params-path=./ezkl/circuit.params
+```
+
 <details>
   <summary>Click to expand the error!</summary>
   
@@ -70,11 +76,6 @@ Error: VerifyError([ConstraintCaseDebug {
     ],
 }])
 </details>
-
-6. Run "prove" 2 (it fails)
-```bash
-ezkl prove -M python-output/network-after-train.onnx -D python-output/dummy-input-after-train.json --pk-path=./ezkl/pk.key --proof-path=./ezkl/model2.proof --params-path=./ezkl/kzg.params --circuit-params-path=./ezkl/circuit.params
-```
 
 6. Run "prove" 3 (it also fails)
 ```bash
