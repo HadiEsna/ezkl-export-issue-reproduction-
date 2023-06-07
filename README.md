@@ -8,7 +8,7 @@ This repo contains code and steps to reproduce the issue with export function of
 ** Steps to reproduce
 1. Install ezkl
 2. Run the python code
-3. Move the output to the "python-output" folder
+3. check the output in "python-output" folder
 4. Run "gen-srs"
 ```bash
 mkdir ezkl & ezkl gen-srs --logrows 17 --params-path=./ezkl/kzg.params
