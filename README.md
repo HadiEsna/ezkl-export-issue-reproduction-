@@ -29,6 +29,61 @@ ezkl prove -M python-output/network-before-train.onnx -D python-output/dummy-inp
 ezkl prove -M python-output/network-after-train.onnx -D python-output/dummy-input-after-train.json --pk-path=./ezkl/pk.key --proof-path=./ezkl/model2.proof --params-path=./ezkl/kzg.params --circuit-params-path=./ezkl/circuit.params
 ```
 
+
+
+<details>
+  <summary>Click to expand the error!</summary>
+  [*] [8s, ezkl_lib::graph::model] - configuring model
+[*] [8s, ezkl_lib::graph::model] - model layout...
+[*] [54s, ezkl_lib::graph::model] - computing...
+[E] [62s, ezkl] - failed: verification failed
+Error: VerifyError([ConstraintCaseDebug {
+    constraint: Constraint {
+        gate: Gate {
+            index: 71,
+            name: "RANGE",
+        },
+        index: 0,
+        name: "",
+    },
+    location: InRegion {
+        region: Region 2 ('model'),
+        offset: 40509,
+    },
+    cell_values: [
+        (
+            DebugVirtualCell {
+                name: "",
+                column: DebugColumn {
+                    column_type: Advice,
+                    index: 17,
+                    annotation: "",
+                },
+                rotation: 0,
+            },
+            "0x41",
+        ),
+        (
+            DebugVirtualCell {
+                name: "",
+                column: DebugColumn {
+                    column_type: Advice,
+                    index: 26,
+                    annotation: "",
+                },
+                rotation: 0,
+            },
+            "0",
+        ),
+    ],
+}])
+</details>
+
+6. Run "prove" 3 (it also fails)
+```bash
+ezkl prove -M python-output/network-after-train.onnx -D python-output/real-input-after-train.json --pk-path=./ezkl/pk.key --proof-path=./ezkl/model3.proof --params-path=./ezkl/kzg.params --circuit-params-path=./ezkl/circuit.params
+```
+
 <details>
   <summary>Click to expand the error!</summary>
   
@@ -76,8 +131,3 @@ Error: VerifyError([ConstraintCaseDebug {
     ],
 }])
 </details>
-
-6. Run "prove" 3 (it also fails)
-```bash
-ezkl prove -M python-output/network-after-train.onnx -D python-output/real-input-after-train.json --pk-path=./ezkl/pk.key --proof-path=./ezkl/model3.proof --params-path=./ezkl/kzg.params --circuit-params-path=./ezkl/circuit.params
-```
