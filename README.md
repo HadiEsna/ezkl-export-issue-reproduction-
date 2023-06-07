@@ -131,3 +131,35 @@ Error: VerifyError([ConstraintCaseDebug {
     ],
 }])
 </details>
+
+## Errors we found
+
+
+1. Export function doesn't work when using input_array
+
+The export function doesnt't work if you specify an input_array and not an input_shape:
+https://github.com/zkonduit/pyezkl/blob/9d264861ed036dab88e0aa598cdc745ffe8161c8/ezkl/export.py#L8
+
+Mostly for two reason: 
+- one is that in that case you never define a "input_shape" so you can't do this export: data = dict(input_shapes = [input_shape]...
+- the other (that could be our data) is that "x" is generated as a dtype = float64, and the model needs float32 (when you do it with the random array it is created as 32
+
+You can correct that with this lines of code:
+
+```
+x = x.type(torch.float32)
+
+if input_shape is None:
+    input_shape = len(input_array)
+```
+
+
+2. We can't create a proof for a trained model
+
+Even if we correct that, the proof is working for us if we use the original "circuit" so, the model before uptdating the weights:
+
+```
+circuit = BinaryClassifier(hidden_size, input_size)
+```
+
+But if we train the model, updating the weights to learn from our data and then try to create the proof with a new onnx file, the proof fails
